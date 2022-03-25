@@ -1,0 +1,20 @@
+# Empty cause default values.yml is enough
+# Just fill the exposed routes to differentiate between SPs
+routes:
+  # Change the following accordingly to your needs
+  cloudURL: 'cloud-vms-1.minikube'
+
+isOpenShift: false
+isMinikube: true
+vms:
+  isCloud: "true" # Let the micro-services know they are executing in the Edge
+  variantType: "-1" # Set the VMS to act as the Cloud Variant
+  needKafkaBeans: "true" # Kafka is needed if variantType != 0 (cache-only variant)
+
+vps: # Number of replicas for the video processing system
+  replicas: 1
+
+images:
+  cloudGateway: docker.io/massigollo/video-server:cloud-gatewayV1 
+  cloudVms: docker.io/massigollo/video-server:cloud-vms
+  cloudVps: docker.io/massigollo/video-server:cloud-vps
