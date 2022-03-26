@@ -1,4 +1,4 @@
-{{ if .Values.isMinikube }}
+{{ if or (.Values.isMinikube) (.Values.isGkeCkoud)  }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:

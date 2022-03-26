@@ -81,6 +81,7 @@ noDNSServerForCloud: false
 isOpenShift: true
 # If you are deploying on Minikube, set this true
 isMinikube: false
+isGkeCkoud: false
 
 # storageClassName for unict okd deployment: glusterfs-storage
 # Storage Class Name to use for the persistent volume claims
