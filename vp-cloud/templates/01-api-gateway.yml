@@ -54,6 +54,7 @@ spec:
             containers:
                 - name: videoserver-gateway
                   image: {{.Values.images.cloudGateway}}
+                  imagePullPolicy: Always
                   ports:
                   - containerPort: 8081
                   volumeMounts:

@@ -15,6 +15,6 @@ vps: # Number of replicas for the video processing system
   replicas: 1
 
 images:
-  cloudGateway: docker.io/massigollo/video-server:cloud-gatewayV1 
+  cloudGateway: docker.io/massigollo/video-server:cloud-gateway
   cloudVms: docker.io/massigollo/video-server:cloud-vms
   cloudVps: docker.io/massigollo/video-server:cloud-vps
