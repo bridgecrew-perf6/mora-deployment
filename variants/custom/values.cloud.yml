@@ -1,0 +1,26 @@
+routes:
+  cloudURL: 'cloud.massimogollo.it'
+  edgeURL: 'edge.massimogollo.it'
+
+namespace: default
+
+# Note: the following two values cannot be together set at true
+# If you are deploing on openshift, set isOpenshift at true and isMinikube at false
+# If you are deploying on a generic k8s cluster, set both at false (dynamic provisioning should be used and have a
+#  look at the storageClassName to use
+# If you are deploying on Minikube set isOpenshift at true and isMinikube at true
+
+# If you are deploying on OpenShift, keep this true (Note, it's a string)
+isOpenShift: false
+# If you are deploying on Minikube, set this true
+isMinikube: true
+isGkeCkoud: false
+
+# Images url for the containers
+images:
+  cloudGateway: docker.io/massigollo/video-server:cloud-gateway
+  cloudVms: docker.io/massigollo/video-server:cloud-vms
+  cloudVps: docker.io/massigollo/video-server:cloud-vps
+  mongoDb: docker.io/bitnami/mongodb:4.4
+  kafka: wurstmeister/kafka:2.11-2.0.0
+  zookeeper: library/zookeeper:3.4.13
