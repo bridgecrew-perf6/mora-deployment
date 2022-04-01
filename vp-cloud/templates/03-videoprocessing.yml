@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: 
   name: videoserver-videoprocessing
+  namespace: {{ .Values.namespace }}
 spec:
     replicas: {{ .Values.vps.replicas }}
     selector:
@@ -38,6 +39,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  namespace: {{ .Values.namespace }}
   name: videoserver-videoprocessing-env-file
 data:
   KAFKA_ADDRESS: kafkaa:9092

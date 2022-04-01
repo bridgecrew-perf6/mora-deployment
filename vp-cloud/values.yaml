@@ -66,6 +66,8 @@ routes:
   # In order to enable it, you also have to set the DNSServerForCloud to false
   CloudIP: ''
 
+namespace: default
+
 # Set this to false if you want to use CloudIP above
 # TODO remove me in favor of len(cloudIP) != 0
 noDNSServerForCloud: false

@@ -2,7 +2,8 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: foo-pv
+  namespace: {{ .Values.namespace }}
+  name: mongo-pv
 spec:
   storageClassName: {{.Values.storageClassName}}
   accessModes:
@@ -10,7 +11,7 @@ spec:
     - ReadWriteOnce
     - ReadOnlyMany
   capacity:
-    storage: 5Gi
+    storage: 1Gi
   hostPath:
     path: /var/cloud/mongodata
     type: DirectoryOrCreate
@@ -18,7 +19,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: foo-pv3
+  namespace: {{ .Values.namespace }}
+  name: logs-pv
 spec:
   storageClassName: {{.Values.storageClassName}}
   accessModes:
@@ -26,7 +28,7 @@ spec:
     - ReadWriteOnce
     - ReadOnlyMany
   capacity:
-    storage: 5Gi
+    storage: 1Gi
   hostPath:
     path: /var/cloud/logs
     type: DirectoryOrCreate
@@ -34,7 +36,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: foo-pv2
+  namespace: {{ .Values.namespace }}
+  name: videos-pv
 spec:
   storageClassName: {{.Values.storageClassName}}
   accessModes:
@@ -50,7 +53,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: foo-pv4
+  name: videofiles-pv
+  namespace: {{ .Values.namespace }}
 spec:
   storageClassName: {{.Values.storageClassName}}
   accessModes:
