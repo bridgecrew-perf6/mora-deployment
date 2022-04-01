@@ -1,9 +1,10 @@
 routes:
   # This is the domain to which a client is redirected if the Edge cannot serve her request
-  cloudURL: 'cloud.massimogollo.it'
+  cloudURL: 'cloud-vms-1.minikube'
   # This is the domain to which expose the main route used by the clients (actually this would be achieved by a location transparency DNS configuration)
-  edgeURL: 'edge.massimogollo.it'
+  edgeURL: 'edge-vms-1.minikube'
 
+noDNSServerForCloud: false
 isOpenShift: false
 isMinikube: true
 
