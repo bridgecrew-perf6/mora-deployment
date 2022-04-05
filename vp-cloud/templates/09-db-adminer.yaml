@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: mongo-express
-          image: mongo-express
+          image: {{.Values.images.mongoExpress }}
           ports:
             - name: http
               containerPort: 8081
@@ -39,5 +39,5 @@ spec:
             - name: ME_CONFIG_MONGODB_ADMINPASSWORD
               value: {{ .Values.mongodb.password | default "toor" }}
             - name: ME_CONFIG_MONGODB_SERVER
-              value: {{ .Values.mongodb.databaseName | default "mongodb" }}
+              value: {{ .Values.mongodb.serviceName | default "mongodb" }}
 

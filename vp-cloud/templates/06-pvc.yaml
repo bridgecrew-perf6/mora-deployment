@@ -10,7 +10,10 @@ spec:
   resources:
     requests:
       storage: 5Gi
+  {{ if eq .Values.isMinikube true }}
   volumeName: videofiles-pv
+  {{ end }}
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -24,7 +27,10 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  {{ if eq .Values.isMinikube true }}
   volumeName: logs-pv
+  {{ end }}
+  #volumeName: logs-pv
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -38,7 +44,10 @@ spec:
   resources:
     requests:
       storage: 5Gi
+  {{ if eq .Values.isMinikube true }}
   volumeName: videos-pv
+  {{ end }}
+#volumeName: videos-pv
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -52,4 +61,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  {{ if eq .Values.isMinikube true }}
   volumeName: mongo-pv
+  {{ end }}
+  #volumeName: mongo-pv

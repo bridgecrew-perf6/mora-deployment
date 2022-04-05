@@ -158,3 +158,4 @@ images:
   zookeeper: library/zookeeper:3.4.13
   # This image is used by default for mongoDb if isOpenShift is set to true
   openShiftMongoDb: docker-registry.default.svc:5000/openshift/mongodb
+  mongoExpress: docker.io/mongo-express
