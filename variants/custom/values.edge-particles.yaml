@@ -1,0 +1,35 @@
+routes:
+  # This is the domain to which a client is redirected if the Edge cannot serve her request
+  cloudURL: 'cloud.gollo1.particles.unict.it'
+  edgeURL: 'edge.gollo1.particles.unict.it'
+
+noDNSServerForCloud: false
+isOpenShift: false
+isMinikube: true
+
+vms:
+  isCloud: "false" # Let the micro-services know they are executing in the Edge
+  maxVideo: 10
+  variantType: "0" # Set the VMS to act as the Edge Cache Variant
+  needKafkaBeans: "false"
+
+#Parameters of the capped video collection
+mongodb:
+  videoCollectionSize: 10000
+  videoCollectionMaxDocs: 10
+
+vps: # Not used here since Cache Variant does not deploy any VPS
+  replicas: 1
+
+lb:
+  # Sets the maximum number of concurrent users an Edge Deployment can serve
+  maxConcurrentUsers: 100
+
+# Images url for the containers
+images:
+  cloudGateway: docker.io/massigollo/video-server:cloud-gateway
+  cloudVms: docker.io/massigollo/video-server:cloud-vms
+  cloudVps: docker.io/massigollo/video-server:cloud-vps
+  mongoDb: docker.io/bitnami/mongodb:4.4
+  kafka: wurstmeister/kafka:2.11-2.0.0
+  zookeeper: library/zookeeper:3.4.13
