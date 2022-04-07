@@ -1,3 +1,12 @@
+resources:
+  vps:
+    limits:
+      cpu: 500m
+      memory: 3Gi
+    requests:
+      cpu: 300m
+      memory: 2Gi
+
 routes:
   cloudURL: 'cloud.gollo1.particles.dieei.unict.it'
   edgeURL: 'edge.gollo1.particles.dieei.unict.it'
