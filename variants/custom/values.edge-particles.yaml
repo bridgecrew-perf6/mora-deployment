@@ -1,7 +1,7 @@
 routes:
   # This is the domain to which a client is redirected if the Edge cannot serve her request
-  cloudURL: 'cloud.gollo1.particles.unict.it'
-  edgeURL: 'edge.gollo1.particles.unict.it'
+  cloudURL: 'cloud.gollo1.particles.dieei.unict.it'
+  edgeURL: 'edge.gollo1.particles.dieei.unict.it'
 
 noDNSServerForCloud: false
 isOpenShift: false
