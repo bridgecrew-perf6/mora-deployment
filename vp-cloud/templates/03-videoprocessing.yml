@@ -17,7 +17,7 @@ spec:
             containers:
                 - name: videoserver-videoprocessing
                   image: {{.Values.images.cloudVps}}
-                  imagePullPolicy: Always
+                  imagePullPolicy: IfNotPresent
                   volumeMounts:
                       - mountPath: /videofiles
                         name: videoserver-videofiles

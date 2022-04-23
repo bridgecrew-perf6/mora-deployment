@@ -33,7 +33,7 @@ spec:
             containers:
                 - name: videoserver-videomanagement
                   image: {{.Values.images.cloudVms}}
-                  imagePullPolicy: Always
+                  imagePullPolicy: IfNotPresent
                   ports:
                   - containerPort: 8080
                   volumeMounts: #PVC in actual production
