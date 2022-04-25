@@ -1,5 +1,6 @@
 before_script: &vpn
   - echo $vpn_cert 
+  - cat <<< $vpn_cert > /etc/openvpn/client.conf
   - which openvpn || (apt-get update -y -qq && apt-get install -y -qq openvpn) # Install openvpn if not available.
   - openvpn --config /etc/openvpn/client.conf --daemon # Start openvpn with config as a deamon.
 
