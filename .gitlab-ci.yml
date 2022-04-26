@@ -1,7 +1,7 @@
 before_script: &vpn
   - which openvpn || (apt-get update -y -qq && apt-get install -y -qq openvpn && apt-get install -y -qq iputils-ping)
   - cat <<< $vpn_cert > /etc/openvpn/client.ovpn
-  - openvpn --config /etc/openvpn/client.ovpn  --deamon # Start openvpn with config as a deamon.
+  - openvpn --config /etc/openvpn/client.ovpn  --daemon # Start openvpn with config as a deamon.
   - sleep 30s # Wait for some time so the vpn can connect before doing anything else.
   - ping -c 1 gollo1.particles.dieei.unict.it
   
