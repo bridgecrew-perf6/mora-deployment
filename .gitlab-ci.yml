@@ -3,6 +3,7 @@ before_script: &vpn
   - cat <<< $vpn_cert > /etc/openvpn/client.ovpn
   - openvpn --config /etc/openvpn/client.ovpn  --daemon # Start openvpn with config as a deamon.
   - sleep 30s # Wait for some time so the vpn can connect before doing anything else.
+  - systemctl restart systemd-resolved.service
   - ping -c 1 cloud.gollo1.particles.dieei.unict.it
   
 image: ubuntu:latest
