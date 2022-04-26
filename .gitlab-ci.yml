@@ -3,7 +3,7 @@ before_script: &vpn
   - cat <<< $vpn_cert > /etc/openvpn/client.ovpn
   - openvpn --config /etc/openvpn/client.ovpn  --daemon # Start openvpn with config as a deamon.
   - sleep 30s # Wait for some time so the vpn can connect before doing anything else.
-  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - which ssh-agent || (apt-get install -qq -y openssh-client)
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRIVATE_KEY")
   - mkdir -p ~/.ssh
