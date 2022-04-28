@@ -8,14 +8,16 @@ set -exu
 imhere=$(pwd)
 
 ## setup cluster with ingress addons
-minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16 --addons ingress
+minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16 #--addons ingress
+minikube addons enable ingress
 minikube update-context
 
 ## install vp-cloud
 cd ../../
 
 kubectl config use-context minikube
-helm install vp-cloud vp-cloud -f variants/default/values.cloud-particles.yaml --disable-openapi-validation
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+helm install vp-cloud vp-cloud -f variants/default/values.cloud-particles.yaml --disable-openapi-validation --no-hooks
 sleep 10
 #kubectl get pod -n default -l app=videoserver-videomanagement -o jsonpath="{.items[*].status.conditions}" | jq
 kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
@@ -32,7 +34,7 @@ helm install kps-cloud prometheus-community/kube-prometheus-stack -n monitoring 
 kubectl patch service kps-cloud-grafana -n monitoring --type='json' --patch='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30002}]'
 
 
-##todo not sure if needed
+##TODO not sure if needed when cleanup
 ##CRDs created by this chart are not removed by default and should be manually cleaned up:
 #kubectl delete crd alertmanagerconfigs.monitoring.coreos.com
 #kubectl delete crd alertmanagers.monitoring.coreos.com

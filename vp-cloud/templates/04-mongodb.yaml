@@ -106,6 +106,13 @@ spec:
     - type: ConfigChange
 {{- else }}
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-initdb
+data:
+{{ (.Files.Glob "scripts/seed.sh").AsConfig | indent 2 }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -175,6 +182,8 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mongodb/data
               name: data
+            - mountPath: /docker-entrypoint-initdb.d
+              name: mongo-initdb
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -184,4 +193,7 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: mongodb-data
+        - name: mongo-initdb
+          configMap:
+            name: mongo-initdb
 {{- end }}
