@@ -5,7 +5,7 @@
 # u = unset or undefined variables means errors - not applied for * or @
 set -exu
 
-imhere = $(pwd)
+imhere=$(pwd)
 
 ## setup cluster with ingress addons
 minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16 --addons ingress
@@ -13,20 +13,23 @@ minikube update-context
 
 ## install vp-cloud
 cd ../../
-helm install vp-cloud vp-cloud -f variants/custom/values.cloud-particles.yaml --disable-openapi-validation
+
+kubectl config use-context minikube
+helm install vp-cloud vp-cloud -f variants/default/values.cloud-particles.yaml --disable-openapi-validation
+sleep 10
 #kubectl get pod -n default -l app=videoserver-videomanagement -o jsonpath="{.items[*].status.conditions}" | jq
-kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement
+kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
 
-##TODO feel services
+##TODO fill services
 
 
-cd imhere
+cd $imhere
 ## install && configure prometheus operatator
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update
 kubectl create ns monitoring
 #expose grafana
 helm install kps-cloud prometheus-community/kube-prometheus-stack -n monitoring --set grafana.service.type=NodePort
-kubectl patch service kps-test-grafana -n monitoring2 --type='json' --patch='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30002}]'
+kubectl patch service kps-cloud-grafana -n monitoring --type='json' --patch='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30002}]'
 
 
 ##todo not sure if needed
