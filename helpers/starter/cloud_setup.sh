@@ -57,12 +57,14 @@ minikube ssh "mkdir /home/docker/raw" </dev/null
 minikube ssh "mkdir /home/docker/encoded" </dev/null
 scp -i $(minikube ssh-key) $VIDEO_PATH/raw.tar.gz docker@$(minikube ip):/home/docker/raw/raw.tar.gz
 scp -i $(minikube ssh-key) $VIDEO_PATH/encoded.tar.gz docker@$(minikube ip):/home/docker/encoded/encoded.tar.gz
-minikube ssh "tar -xvf /home/docker/raw/raw.tar.gz -C /home/docker/raw/." </dev/null
+
+minikube ssh "tar -xvf /home/docker/raw/raw.tar.gz -C /home/docker/raw/. && rm raw.tar.gz" </dev/null
 minikube ssh "tar -xvf /home/docker/encoded/encoded.tar.gz -C /home/docker/encoded/." </dev/null
+
 while read -r video_id; do
-   minikube ssh "sudo mkdir /var/cloud/videos/'$video_id'" </dev/null
-   minikube ssh "sudo ln -s /home/docker/raw/raw_video/ /var/cloud/videos/'$video_id'" </dev/null
-   minikube ssh "sudo mkdir /var/cloud/videofiles/'$video_id'" </dev/null
+   minikube ssh "sudo mkdir /var/cloud/videos/'$video_id' && sudo ln -s /home/docker/raw/raw_video/video.mp4 /var/cloud/videos/'$video_id'" </dev/null
+   minikube ssh "sudo mkdir /var/cloud/videofiles/'$video_id' && sudo ln -sf /home/docker/encoded/encoded/* /var/cloud/videofiles/'$video_id'/" </dev/null
+   minikube ssh "sudo ln -s /home/docker/encoded/encoded.tar.gz /var/cloud/videofiles/$video_id.tar" </dev/null
 done < ./videolist.txt
 
 cd $imhere
