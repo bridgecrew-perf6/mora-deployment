@@ -182,8 +182,10 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mongodb/data
               name: data
+              {{- if eq .Values.vms.isCloud "true" }}
             - mountPath: /docker-entrypoint-initdb.d
               name: mongo-initdb
+              {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
