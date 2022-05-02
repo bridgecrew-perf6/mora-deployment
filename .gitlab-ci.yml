@@ -8,8 +8,11 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
+    - echo $CI_PROJECT_DIR
+    - echo $CI_BUILDS_DIR
   tags:
     - "shell-cloud"
+  when: manual
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
@@ -19,6 +22,7 @@ unit-test-job:   # This job runs in the test stage.
     - echo "Code coverage is 90%"
   tags:
     - "shell-cloud"
+  when: manual
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
@@ -28,6 +32,8 @@ lint-test-job:   # This job also runs in the test stage.
     - echo "No lint issues found."
   tags:
     - "shell-cloud"
+  when: manual
+
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
@@ -35,3 +41,4 @@ deploy-job:      # This job runs in the deploy stage.
     - echo "Application successfully deployed."
   tags:
     - "shell-cloud"
+  when: manual
