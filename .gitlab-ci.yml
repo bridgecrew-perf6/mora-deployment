@@ -9,7 +9,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code..."
     - echo "Compile complete."
     - echo $CI_PROJECT_DIR
-    - echo $CI_BUILDS_DIR
+    - cd $CI_PROJECT_DIR/helpers/starter && ./cloud_setup.sh
   tags:
     - "shell-cloud"
   when: manual
