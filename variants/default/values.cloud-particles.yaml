@@ -27,9 +27,9 @@ isGkeCkoud: false
 
 # Images url for the containers
 images:
-  cloudGateway: registry.gitlab.com/massimo-gollo/mora-deployment:cloud-gateway
-  cloudVms: registry.gitlab.com/massimo-gollo/mora-deployment:cloud-vms
-  cloudVps: registry.gitlab.com/massimo-gollo/mora-deployment:cloud-vps
-  mongoDb: registry.gitlab.com/massimo-gollo/mora-deployment/mongodb:4.4
-  kafka: registry.gitlab.com/massimo-gollo/mora-deployment/kafka:2.11-2.0.0
-  zookeeper: registry.gitlab.com/massimo-gollo/mora-deployment/zookeeper:3.4.13
+  cloudGateway: docker.io/massigollo/video-server:cloud-gateway
+  cloudVms: docker.io/massigollo/video-server:cloud-vms
+  cloudVps: docker.io/massigollo/video-server:cloud-vps
+  mongoDb: docker.io/bitnami/mongodb:4.4
+  kafka: wurstmeister/kafka:2.11-2.0.0
+  zookeeper: library/zookeeper:3.4.13
