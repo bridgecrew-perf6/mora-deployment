@@ -1,34 +1,35 @@
 stages:          # List of stages for jobs, and their order of execution
-  - build-cloud
-  - build-edge
-  - run-load-gen
-  - collect-metrics
+  - cloud
+  - edge
+  - cleanup
+  - run-load
 
-cloud-startup-job:      
-  stage: build-cloud
+deploy-cloud-job:
+  stage: cloud
   script:
     - cd $CI_PROJECT_DIR/helpers/starter && ./cloud_setup.sh
   before_script:
     - docker login -u $GITLAB_USER -p $PERSONAL_ACCESS_TOKEN $CI_REGISTRY
   tags:
-    - "cloud"
+    - "cloud-runner"
   when: manual
 
-cloud-cleanup-job:  
-  stage: build-cloud  
+cleanup-job:
+  stage: cleanup
   script:
     - minikube delete 
   tags:
     - "cloud"
+    - "edge"
   when: manual
 
-edge-startup-job:      
-  stage: build-edge
+deploy-edge-job:
+  stage: edge
+  needs: [deploy-cloud-job]
   script:
-    - echo "shoud start edge with version.."
+    - cd $CI_PROJECT_DIR && helm install vp-edge vp-cloud -f variants/default/values.edge-particles.yaml --disable-openapi-validation
   before_script:
     - docker login -u $GITLAB_USER -p $PERSONAL_ACCESS_TOKEN $CI_REGISTRY
   tags:
     - "edge"
-  when: manual
 
