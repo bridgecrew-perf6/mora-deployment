@@ -19,8 +19,8 @@ cleanup-job:
   script:
     - minikube delete 
   tags:
-    - "cloud"
-    - "edge"
+    - "cloud-runner"
+    - "edge-runner"
   when: manual
 
 deploy-edge-job:
@@ -31,5 +31,5 @@ deploy-edge-job:
   before_script:
     - docker login -u $GITLAB_USER -p $PERSONAL_ACCESS_TOKEN $CI_REGISTRY
   tags:
-    - "edge"
+    - "edge-runner"
 
