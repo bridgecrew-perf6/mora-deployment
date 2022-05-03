@@ -28,6 +28,7 @@ deploy-edge-job:
   needs: [deploy-cloud-job]
   script:
     - minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16
+    - minikube addons enable ingress
     - cd $CI_PROJECT_DIR && helm install vp-edge vp-cloud -f variants/default/values.edge-particles.yaml --disable-openapi-validation
     - kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
   tags:
