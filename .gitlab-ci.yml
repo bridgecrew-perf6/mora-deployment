@@ -27,9 +27,17 @@ deploy-edge-job:
   stage: edge
   needs: [deploy-cloud-job]
   script:
+    - minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16
     - cd $CI_PROJECT_DIR && helm install vp-edge vp-cloud -f variants/default/values.edge-particles.yaml --disable-openapi-validation
-  before_script:
-    - docker login -u $GITLAB_USER -p $PERSONAL_ACCESS_TOKEN $CI_REGISTRY
+    - kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
   tags:
     - "edge-runner"
 
+start-load: 
+    stage: run-load
+    script: 
+      - echo "starting load"
+    needs: [deploy-edge-job]
+    when: manual #TODO remove me
+    tags: 
+      - "load-runner" #do not exist yes
