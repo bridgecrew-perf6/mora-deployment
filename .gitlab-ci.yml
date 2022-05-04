@@ -1,35 +1,50 @@
 stages:          # List of stages for jobs, and their order of execution
   - cloud
   - edge
-  - cleanup
   - run-load
+  - cleanup
 
 deploy-cloud-job:
   stage: cloud
   script:
     - cd $CI_PROJECT_DIR/helpers/starter && ./cloud_setup.sh
-  before_script:
-    - docker login -u $GITLAB_USER -p $PERSONAL_ACCESS_TOKEN $CI_REGISTRY
   tags:
     - "cloud-runner"
   when: manual
 
-cleanup-job:
+deploy-edge-job:
+  stage: edge
+  #needs: [deploy-cloud-job, cleanup-edge-job]
+  script:
+    - minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16
+    - minikube addons enable ingress
+    - cd $CI_PROJECT_DIR && helm install vp-edge vp-cloud -f variants/default/values.edge-particles.yaml --disable-openapi-validation
+    - kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
+  tags:
+    - "edge-runner"
+  when: manual
+
+cleanup-edge-job:
   stage: cleanup
   script:
     - minikube delete 
   tags:
-    - "cloud"
-    - "edge"
+    - "edge-runner"
   when: manual
 
-deploy-edge-job:
-  stage: edge
-  needs: [deploy-cloud-job]
+cleanup-cloud-job:
+  stage: cleanup
   script:
-    - cd $CI_PROJECT_DIR && helm install vp-edge vp-cloud -f variants/default/values.edge-particles.yaml --disable-openapi-validation
-  before_script:
-    - docker login -u $GITLAB_USER -p $PERSONAL_ACCESS_TOKEN $CI_REGISTRY
+    - minikube delete 
   tags:
-    - "edge"
+    - "cloud-runner"
+  when: manual
 
+start-load: 
+    stage: run-load
+    script: 
+      - echo "starting load"
+    needs: [deploy-edge-job]
+    when: manual #TODO remove me
+    tags: 
+      - "load-runner" #do not exist yes
