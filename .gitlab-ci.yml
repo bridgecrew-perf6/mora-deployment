@@ -9,9 +9,9 @@ test-job:
   stage: test
   script: 
     - echo ping
+    - kubectl get pods
   tags: 
     - "cloud-runner"
-  when: manual
 
 deploy-cloud-job:
   stage: cloud
