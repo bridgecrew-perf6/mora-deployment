@@ -27,9 +27,9 @@ lb:
 
 # Images url for the containers
 images:
-  cloudGateway: docker.io/massigollo/video-server:cloud-gateway
-  cloudVms: docker.io/massigollo/video-server:cloud-vms
-  cloudVps: docker.io/massigollo/video-server:cloud-vps
-  mongoDb: docker.io/bitnami/mongodb:4.4
-  kafka: wurstmeister/kafka:2.11-2.0.0
-  zookeeper: library/zookeeper:3.4.13
+  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
+  cloudVms: quay.io/massigollo/video-server:cloud-vms
+  cloudVps: quay.io/massigollo/video-server:cloud-vps
+  mongoDb: quay.io/massigollo/video-server:mongodb
+  kafka: quay.io/massigollo/video-server:kafka
+  zookeeper: quay.io/massigollo/video-server:zookeeper
