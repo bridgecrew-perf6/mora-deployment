@@ -10,6 +10,7 @@ test-job:
   script: 
     - echo ping
     - kubectl get pods
+    - sudo touch /etc/nginx/conf.d/test.txt
   tags: 
     - "cloud-runner"
 
