@@ -67,7 +67,7 @@ minikube ssh "sudo tar -xvf /home/docker/encoded/encoded.tar -C /var/cloud/video
 cd $imhere
 while read -r video_id; do
    minikube ssh "sudo mkdir /var/cloud/videos/'$video_id' && cd /var/cloud/videos/'$video_id' && sudo ln -s ../video.mp4 ." </dev/null
-   minikube ssh "sudo mkdir /var/cloud/videofiles/'$video_id' && cd /var/cloud/videofiles/'$video_id' && sudo ln -sf ../encoded/* . && sudo rm ./encoded.tar.gz" </dev/null
+   minikube ssh "sudo mkdir /var/cloud/videofiles/'$video_id' && cd /var/cloud/videofiles/'$video_id' && sudo ln -sf ../encoded/* ." </dev/null
   # minikube ssh "cd /var/cloud/videofiles && sudo ln -s ./encoded/encoded.tar.gz ./$video_id.tar" </dev/null
   minikube ssh "cd /var/cloud/videofiles && sudo tar -cvf $video_id.tar $video_id/"
 done < ./videolist.txt

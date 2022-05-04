@@ -149,13 +149,13 @@ services:
 
 # Images url for the containers
 images:
-  edgeLb: docker.io/aleskandro/video-server:edge-lb
-  cloudGateway: docker.io/aleskandro/video-server:cloud-gateway
-  cloudVms: docker.io/aleskandro/video-server:cloud-vms3
-  cloudVps: docker.io/aleskandro/video-server:cloud-vps
-  mongoDb: docker.io/bitnami/mongodb:4.4
-  kafka: wurstmeister/kafka:2.11-2.0.0
-  zookeeper: library/zookeeper:3.4.13
+  edgeLb: quay.io/massigollo/video-server:edge-lb
+  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
+  cloudVms: quay.io/massigollo/video-server:cloud-vms
+  cloudVps: quay.io/massigollo/video-server:cloud-vps
+  mongoDb: quay.io/massigollo/video-server:mongodb
+  kafka: quay.io/massigollo/video-server:kafka
+  zookeeper: quay.io/massigollo/video-server:zookeeper
   # This image is used by default for mongoDb if isOpenShift is set to true
   openShiftMongoDb: docker-registry.default.svc:5000/openshift/mongodb
-  mongoExpress: docker.io/mongo-express
+  mongoExpress: quay.io/massigollo/video-server:mongo-expr
