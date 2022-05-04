@@ -50,8 +50,18 @@ db.video.insertMany([
 { "_id" : ObjectId("62657da571cd037a1e533c08"), "name" : "video_1650818469", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
 { "_id" : ObjectId("62657da671cd037a1e533c09"), "name" : "video_1650818470", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
 { "_id" : ObjectId("62657da771cd037a1e533c0a"), "name" : "video_1650818471", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
-{ "_id" : ObjectId("62657da871cd037a1e533c0b"), "name" : "video_1650818471", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
-{ "_id" : ObjectId("62657da871cd037a1e533c0c"), "name" : "video_1650818472", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" }])
+{ "_id" : ObjectId("62657da871cd037a1e533c0b"), "name" : "video_1650818473", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("62657da871cd037a1e533c0c"), "name" : "video_1650818472", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a26335487991895d4f44"), "name" : "video_1650818481", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a26835487991895d4f45"), "name" : "video_1650818482", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a26835487991895d4f46"), "name" : "video_1650818483", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a26835487991895d4f47"), "name" : "video_1650818484", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a26835487991895d4f48"), "name" : "video_1650818485", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a26835487991895d4f49"), "name" : "video_1650818486", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a28c35487991895d4f4a"), "name" : "video_1650818487", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a2a035487991895d4f4b"), "name" : "video_1650818488", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a2a035487991895d4f4c"), "name" : "video_1650818489", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" },
+{ "_id" : ObjectId("6272a2a035487991895d4f4d"), "name" : "video_1650818490", "author" : "root", "status" : "Available", "user" : ObjectId("626ae81e9795d602627f3c9a"), "_class" : "com.arenalocastro.videomanagement.models.Video" }])
 EOF
 
 ssh-keyscan $(minikube ip) >> ~/.ssh/known_hosts
