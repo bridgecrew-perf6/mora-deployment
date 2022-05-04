@@ -3,6 +3,15 @@ stages:          # List of stages for jobs, and their order of execution
   - edge
   - cleanup
   - run-load
+  - test 
+
+test-job: 
+  stage: test
+  script: 
+    - echo ping
+  tags: 
+    - "cloud-runner"
+  when: manual
 
 deploy-cloud-job:
   stage: cloud
