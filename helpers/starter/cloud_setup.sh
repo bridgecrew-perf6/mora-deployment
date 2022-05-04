@@ -61,14 +61,15 @@ minikube ssh "sudo mkdir /var/cloud/videofiles/raw" </dev/null
 minikube ssh "sudo mkdir /var/cloud/videofiles/encoded" </dev/null
 scp -i $(minikube ssh-key) $VIDEO_PATH/raw.tar.gz docker@$(minikube ip):/home/docker/raw/raw.tar.gz
 scp -i $(minikube ssh-key) $VIDEO_PATH/encoded.tar.gz docker@$(minikube ip):/home/docker/encoded/encoded.tar.gz
-
+minikube ssh "gunzip /home/docker/encoded/encoded.tar.gz"
 minikube ssh "sudo tar -xvf /home/docker/raw/raw.tar.gz -C /var/cloud/videos/. && rm -rf /home/docker/raw" </dev/null
-minikube ssh "sudo tar -xvf /home/docker/encoded/encoded.tar.gz -C /var/cloud/videofiles/. && sudo mv /home/docker/encoded/encoded.tar.gz /var/cloud/videofiles/encoded" </dev/null
+minikube ssh "sudo tar -xvf /home/docker/encoded/encoded.tar -C /var/cloud/videofiles/. && sudo mv /home/docker/encoded/encoded.tar /var/cloud/videofiles" </dev/null
 cd $imhere
 while read -r video_id; do
    minikube ssh "sudo mkdir /var/cloud/videos/'$video_id' && cd /var/cloud/videos/'$video_id' && sudo ln -s ../video.mp4 ." </dev/null
    minikube ssh "sudo mkdir /var/cloud/videofiles/'$video_id' && cd /var/cloud/videofiles/'$video_id' && sudo ln -sf ../encoded/* . && sudo rm ./encoded.tar.gz" </dev/null
-   minikube ssh "cd /var/cloud/videofiles && sudo ln -s ./encoded/encoded.tar.gz ./$video_id.tar" </dev/null
+  # minikube ssh "cd /var/cloud/videofiles && sudo ln -s ./encoded/encoded.tar.gz ./$video_id.tar" </dev/null
+  minikube ssh "cd /var/cloud/videofiles && sudo tar -cvf $video_id.tar $video_id/"
 done < ./videolist.txt
 
 ## install && configure prometheus operatator
