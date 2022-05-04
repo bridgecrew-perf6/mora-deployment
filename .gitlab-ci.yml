@@ -1,41 +1,20 @@
 stages:          # List of stages for jobs, and their order of execution
   - cloud
   - edge
-  - cleanup
   - run-load
-  - test 
-
-test-job: 
-  stage: test
-  script: 
-    - echo ping
-    - kubectl get pods
-    - sudo touch /etc/nginx/conf.d/test.txt
-  tags: 
-    - "cloud-runner"
+  - cleanup
 
 deploy-cloud-job:
   stage: cloud
   script:
     - cd $CI_PROJECT_DIR/helpers/starter && ./cloud_setup.sh
-  before_script:
-    - docker login -u $GITLAB_USER -p $PERSONAL_ACCESS_TOKEN $CI_REGISTRY
   tags:
     - "cloud-runner"
-  when: manual
-
-cleanup-job:
-  stage: cleanup
-  script:
-    - minikube delete 
-  tags:
-    - "cloud-runner"
-    - "edge-runner"
   when: manual
 
 deploy-edge-job:
   stage: edge
-  needs: [deploy-cloud-job]
+  #needs: [deploy-cloud-job, cleanup-edge-job]
   script:
     - minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16
     - minikube addons enable ingress
@@ -43,6 +22,23 @@ deploy-edge-job:
     - kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
   tags:
     - "edge-runner"
+  when: manual
+
+cleanup-edge-job:
+  stage: cleanup
+  script:
+    - minikube delete 
+  tags:
+    - "edge-runner"
+  when: manual
+
+cleanup-cloud-job:
+  stage: cleanup
+  script:
+    - minikube delete 
+  tags:
+    - "cloud-runner"
+  when: manual
 
 start-load: 
     stage: run-load
