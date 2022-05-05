@@ -1,31 +1,65 @@
 stages:          # List of stages for jobs, and their order of execution
-  - cloud
-  - edge
+  - build-cloud
+  - build-edge
   - run-load
   - cleanup
 
-deploy-cloud-job:
-  stage: cloud
-  script:
-    - cd $CI_PROJECT_DIR/helpers/starter && ./cloud_setup.sh
+cloud-minikube-setup:
+  stage: build-cloud
+  script: 
+    - cd $CI_PROJECT_DIR/helpers/starter && ./minikube_setup.sh
   tags:
     - "cloud-runner"
   when: manual
 
-deploy-edge-job:
-  stage: edge
-  #needs: [deploy-cloud-job, cleanup-edge-job]
+cloud-helm-deploy:
+  stage: build-cloud
+  needs: [cloud-minikube-setup]
   script:
-    - minikube start --memory 16384 --cpus 16 --kubernetes-version=v1.19.16
-    - minikube addons enable ingress
-    - kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
-    - cd $CI_PROJECT_DIR && helm install vp-edge vp-cloud -f variants/default/values.edge-particles.yaml --disable-openapi-validation
-    - kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
+    - cd $CI_PROJECT_DIR/helpers/starter && ./deploy_chart.sh
+  tags:
+    - "cloud-runner"
+
+cloud-seed:
+  stage: build-cloud
+  needs: [cloud-helm-deploy]
+  script:
+    - cd $CI_PROJECT_DIR/helpers/starter && ./seed.sh
+  tags:
+    - "cloud-runner"
+
+cloud-deploy-kps:
+  stage: build-cloud
+  needs: [cloud-seed]
+  script:
+    - cd $CI_PROJECT_DIR/helpers/starter && ./deploy_kps.sh
+  tags:
+    - "cloud-runner"
+
+edge-minikube-setup:
+  stage: build-edge
+  script:
+    - cd $CI_PROJECT_DIR/helpers/starter && ./minikube_setup.sh
   tags:
     - "edge-runner"
   when: manual
 
-cleanup-edge-job:
+edge-helm-deploy:
+  stage: build-edge
+  needs: [edge-minikube-setup]
+  script:
+#TODO: deploy_chart.sh shoud take argument
+#    - cd $CI_PROJECT_DIR/helpers/starter && ./deploy_chart.sh
+    - cd $CI_PROJECT_DIR && helm install vp-edge vp-cloud -f variants/default/values.edge-particles.yaml --disable-openapi-validation
+    - kubectl wait --for=condition=ready pod -l app=videoserver-videomanagement --timeout=10m
+    - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update
+    - kubectl create ns monitoring
+    - helm install kps-edge prometheus-community/kube-prometheus-stack -n monitoring --set grafana.service.type=NodePort
+    - kubectl patch service kps-edge-grafana -n monitoring --type='json' --patch='[{"op":"replace", "path":"/spec/ports/0/nodePort","value":30002}]'
+  tags:
+    - "edge-runner"
+
+cleanup-edge:
   stage: cleanup
   script:
     - minikube delete 
@@ -33,7 +67,7 @@ cleanup-edge-job:
     - "edge-runner"
   when: manual
 
-cleanup-cloud-job:
+cleanup-cloud:
   stage: cleanup
   script:
     - minikube delete 
@@ -45,7 +79,7 @@ start-load:
     stage: run-load
     script: 
       - echo "starting load"
-    needs: [deploy-edge-job]
+    #needs: [deploy-edge-job]
     when: manual #TODO remove me
     tags: 
       - "load-runner" #do not exist yes
