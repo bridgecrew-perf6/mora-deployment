@@ -22,21 +22,22 @@ cloud-helm-deploy:
   tags:
     - "cloud-runner"
 
-cloud-seed:
-  stage: build-cloud
-  needs: 
-    - cloud-helm-deploy
-  script:
-    - cd $CI_PROJECT_DIR/helpers/scripts && ./seed.sh
-  tags:
-    - "cloud-runner"
-
 cloud-deploy-kps:
   stage: build-cloud
   needs: 
     - cloud-minikube-setup
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./deploy_kps.sh
+  tags:
+    - "cloud-runner"
+
+cloud-seed:
+  stage: build-cloud
+  needs: 
+    - cloud-helm-deploy
+    - cloud-deploy-kps
+  script:
+    - cd $CI_PROJECT_DIR/helpers/scripts && ./seed.sh
   tags:
     - "cloud-runner"
 
