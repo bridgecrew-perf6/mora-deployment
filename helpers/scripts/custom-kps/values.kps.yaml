@@ -2441,6 +2441,17 @@ prometheus:
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
     storageSpec: {}
+
+#    storageSpec:
+#      volumeClaimTemplate:
+#        spec:
+#          storageClassName: standard
+#          volumeName: kps-volume
+#          accessModes: [ 'ReadWriteOnce' ]
+#          resources:
+#            requests:
+#              storage: 5Gi
+
     ## Using PersistentVolumeClaim
     ##
     #  volumeClaimTemplate:
