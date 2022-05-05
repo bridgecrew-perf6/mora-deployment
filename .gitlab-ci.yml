@@ -90,7 +90,7 @@ start-load:
 collect-data-edge:
   stage: collect-data
   script:
-    - cd $CI_PROJECT_DIR/helpers/scripts && ./collect_metrics.sh edge
+    - cd $CI_PROJECT_DIR/helpers/scripts && ./collect_metrics.sh
   tags: 
     - "edge-runner"
   artifacts:
@@ -102,7 +102,7 @@ collect-data-edge:
 collect-data-cloud:
   stage: collect-data
   script:
-    - cd $CI_PROJECT_DIR/helpers/scripts && ./collect_metrics.sh cloud
+    - cd $CI_PROJECT_DIR/helpers/scripts && ./collect_metrics.sh
   tags:
     - "cloud-runner"
   artifacts:
