@@ -30,7 +30,7 @@ cloud-seed:
 
 cloud-deploy-kps:
   stage: build-cloud
-  needs: [cloud-minikube-setup]
+  needs: [cloud-seed]
   script:
     - cd $CI_PROJECT_DIR/helpers/starter && ./deploy_kps.sh
   tags:
