@@ -36,6 +36,7 @@ cloud-seed:
   needs: 
     - cloud-helm-deploy
     - cloud-deploy-kps
+    - cloud-minikube-setup
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./seed.sh
   tags:
