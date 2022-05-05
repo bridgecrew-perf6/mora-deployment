@@ -1,16 +1,40 @@
 stages:          # List of stages for jobs, and their order of execution
-  - cloud
+  - build-cloud
   - edge
   - run-load
   - cleanup
 
-deploy-cloud-job:
-  stage: cloud
+cloud-minikube-setup:
+  stage: build-cloud
   script:
-    - cd $CI_PROJECT_DIR/helpers/starter && ./cloud_setup.sh
+    - cd $CI_PROJECT_DIR/helpers/starter && ./minikube_setup.sh
   tags:
     - "cloud-runner"
   when: manual
+
+cloud-helm-deploy:
+  stage: build-cloud
+  needs: [cloud-minikube-setup]
+  script:
+    - cd $CI_PROJECT_DIR/helpers/starter && ./deploy_chart.sh
+  tags:
+    - "cloud-runner"
+
+cloud-seed:
+  stage: build-cloud
+  needs: [cloud-helm-deploy]
+  script:
+    - cd $CI_PROJECT_DIR/helpers/starter && ./seed.sh
+  tags:
+    - "cloud-runner"
+
+cloud-deploy-kps:
+  stage: build-cloud
+  needs: [cloud-minikube-setup]
+  script:
+    - cd $CI_PROJECT_DIR/helpers/starter && ./deploy_kps.sh
+  tags:
+    - "cloud-runner"
 
 deploy-edge-job:
   stage: edge
