@@ -1,0 +1,22 @@
+{{- if eq .Values.isMinikube true }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kps-volume
+  labels:
+    purpose: prometheus
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce # required
+  hostPath:
+    path: /var/cloud/kps-volume
+    type: DirectoryOrCreate
+  {{ end }}
