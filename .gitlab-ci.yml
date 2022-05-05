@@ -89,7 +89,8 @@ collect-data-job:
   stage: collect-data
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./collect_metrics.sh
-  tags: "cloud-runner"
+  tags: 
+    - "cloud-runner"
   artifacts:
     untracked: true
     paths:
