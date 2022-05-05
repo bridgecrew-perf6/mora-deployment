@@ -15,7 +15,8 @@ cloud-minikube-setup:
 
 cloud-helm-deploy:
   stage: build-cloud
-  needs: [cloud-minikube-setup]
+  needs: 
+    - cloud-minikube-setup
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./deploy_chart.sh
   tags:
@@ -23,7 +24,8 @@ cloud-helm-deploy:
 
 cloud-seed:
   stage: build-cloud
-  needs: [cloud-helm-deploy]
+  needs: 
+    - cloud-helm-deploy
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./seed.sh
   tags:
@@ -31,7 +33,8 @@ cloud-seed:
 
 cloud-deploy-kps:
   stage: build-cloud
-  needs: [cloud-seed]
+  needs: 
+    - cloud-minikube-setup
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./deploy_kps.sh
   tags:
