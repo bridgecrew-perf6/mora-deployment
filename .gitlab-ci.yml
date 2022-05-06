@@ -65,7 +65,7 @@ start-load:
     stage: run-load
     script: 
       - echo "starting load"
-      - sleep 180
+      - sleep 600
     needs: [edge-helm-deploy]
     tags: 
       - "edge-runner" #do not exist yes
