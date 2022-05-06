@@ -65,10 +65,11 @@ start-load:
     stage: run-load
     script: 
       - echo "starting load"
-      - sleep 600
-    needs: [edge-helm-deploy]
+      - cd ~
+      - ./load-generator -c 11 -u http://edge.gollo2.particles.dieei.unict.it
     tags: 
-      - "edge-runner" #do not exist yes
+      - "load-runner"
+    needs: [edge-helm-deploy]
 
 collect-data-edge:
   stage: collect-data
@@ -113,13 +114,3 @@ cleanup-cloud:
     - "cloud-runner"
   needs:
     - collect-data-cloud
-
-start-load-test: 
-    stage: run-load
-    script: 
-      - echo "starting load"
-      - cd ~
-      - ./load-generator -c 11 -u http://edge.gollo2.particles.dieei.unict.it
-    tags: 
-      - "load-runner" #do not exist yes
-    when: manual
