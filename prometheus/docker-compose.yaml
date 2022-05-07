@@ -7,6 +7,9 @@ x-port-mapping:
   prometheus: &prometheus-ports
     - 9090:5000
 
+volumes:
+  prometheus_data: {}
+
 services:
   prometheus:
     <<: *common-settings-config
@@ -14,8 +17,8 @@ services:
     image: prom/prometheus
     user: root
     volumes:
-      - ./data:/data
-      - ./etc:/etc
+      - prometheus_data:/data
+      - ./etc/prometheus/prometheus.yml:/etc/prometheus/prometheys.yml
     command:
       - '--storage.tsdb.path=/data'
       - '--config.file=/etc/prometheus/prometheus.yml'
