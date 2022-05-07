@@ -1,0 +1,25 @@
+version: '3.8'
+
+x-common-config: &common-settings-config
+  restart: always
+
+x-port-mapping:
+  prometheus: &prometheus-ports
+    - 9090:5000
+
+services:
+  prometheus:
+    <<: *common-settings-config
+    ports: *prometheus-ports
+    image: prom/prometheus
+    user: root
+    volumes:
+      - ./data:/data
+      - ./etc:/etc
+    command:
+      - '--storage.tsdb.path=/data'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--log.level=debug'
+      - '--web.enable-lifecycle'
+      - '--web.listen-address=:5000'
+      - '--web.enable-admin-api'
