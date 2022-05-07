@@ -18,7 +18,7 @@ services:
     user: root
     volumes:
       - prometheus_data:/data
-      - ./etc/prometheus/prometheus.yml:/etc/prometheus/prometheys.yml
+      - ./etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - '--storage.tsdb.path=/data'
       - '--config.file=/etc/prometheus/prometheus.yml'
