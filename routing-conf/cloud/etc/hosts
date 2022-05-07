@@ -1,0 +1,4 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4 gollo1
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6 gollo1
+
+192.168.49.2 cloud.gollo1.particles.dieei.unict.it
