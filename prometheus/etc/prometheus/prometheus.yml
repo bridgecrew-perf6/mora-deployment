@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 20s
+  scrape_interval: 10s
   evaluation_interval: 10s
 #  rules:
 #   - rules.prometheus.yml
@@ -10,7 +10,6 @@ scrape_configs:
       - targets: ['prometheus:5000']
 
   - job_name: load-generator
-    scrape_interval: 20s
-    scrape_timeout: 10s
+    scrape_interval: 10s
     static_configs:
       - targets: ['host.docker.internal:2112']

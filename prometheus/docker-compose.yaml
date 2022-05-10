@@ -26,3 +26,6 @@ services:
       - '--web.enable-lifecycle'
       - '--web.listen-address=:5000'
       - '--web.enable-admin-api'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
