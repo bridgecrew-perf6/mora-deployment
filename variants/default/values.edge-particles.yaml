@@ -9,14 +9,14 @@ isMinikube: true
 
 vms:
   isCloud: "false" # Let the micro-services know they are executing in the Edge
-  maxVideo: 5
+  maxVideo: 10
   variantType: "0" # Set the VMS to act as the Edge Cache Variant
   needKafkaBeans: "false"
 
 #Parameters of the capped video collection
 mongodb:
   videoCollectionSize: 10000
-  videoCollectionMaxDocs: 5
+  videoCollectionMaxDocs: 10
 
 vps: # Not used here since Cache Variant does not deploy any VPS
   replicas: 1
@@ -25,11 +25,11 @@ lb:
   # Sets the maximum number of concurrent users an Edge Deployment can serve
   maxConcurrentUsers: 100
 
-# Images url for the containers
-images:
-  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
-  cloudVms: quay.io/massigollo/video-server:cloud-vms4
-  cloudVps: quay.io/massigollo/video-server:cloud-vps
-  mongoDb: quay.io/massigollo/video-server:mongodb
-  kafka: quay.io/massigollo/video-server:kafka
-  zookeeper: quay.io/massigollo/video-server:zookeeper
+## Images url for the containers
+#images:
+#  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
+#  cloudVms: docker.io/aleskandro/video-server:cloud-vms3
+#  cloudVps: quay.io/massigollo/video-server:cloud-vps
+#  mongoDb: quay.io/massigollo/video-server:mongodb
+#  kafka: quay.io/massigollo/video-server:kafka
+#  zookeeper: quay.io/massigollo/video-server:zookeeper

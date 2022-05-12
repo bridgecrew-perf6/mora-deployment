@@ -26,10 +26,10 @@ isMinikube: true
 isGkeCkoud: false
 
 # Images url for the containers
-images:
-  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
-  cloudVms: quay.io/massigollo/video-server:cloud-vms4
-  cloudVps: quay.io/massigollo/video-server:cloud-vps
-  mongoDb: quay.io/massigollo/video-server:mongodb
-  kafka: quay.io/massigollo/video-server:kafka
-  zookeeper: quay.io/massigollo/video-server:zookeeper
+#images:
+#  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
+#  cloudVms: quay.io/massigollo/video-server:cloud-vms4
+#  cloudVps: quay.io/massigollo/video-server:cloud-vps
+#  mongoDb: quay.io/massigollo/video-server:mongodb
+#  kafka: quay.io/massigollo/video-server:kafka
+#  zookeeper: quay.io/massigollo/video-server:zookeeper
