@@ -151,7 +151,7 @@ services:
 images:
   edgeLb: quay.io/massigollo/video-server:edge-lb
   cloudGateway: quay.io/massigollo/video-server:cloud-gateway
-  cloudVms: quay.io/massigollo/video-server:cloud-vms
+  cloudVms: quay.io/massigollo/video-server:cloud-vms4
   cloudVps: quay.io/massigollo/video-server:cloud-vps
   mongoDb: quay.io/massigollo/video-server:mongodb
   kafka: quay.io/massigollo/video-server:kafka
