@@ -43,13 +43,14 @@ cloud-seed:
     - "cloud-runner"
 
 edge-minikube-setup:
-  needs:
-    - cloud-helm-deploy
+#  needs:
+#    - cloud-helm-deploy
   stage: build-edge
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./minikube_setup.sh
   tags:
     - "edge-runner"
+  when: manual
  
 edge-helm-deploy:
   stage: build-edge
@@ -61,6 +62,7 @@ edge-helm-deploy:
   tags:
     - "edge-runner"
 
+
 start-load: 
     stage: run-load
     script: 
@@ -69,12 +71,13 @@ start-load:
       - ./load-generator -m 10 -d 10m -E sim_edge -v "ECO1" -s http://edge.gollo2.particles.dieei.unict.it
     tags: 
       - "load-runner"
-    needs: [edge-helm-deploy]
+#    needs: [edge-helm-deploy]
+    when: manual
 
 collect-data-edge:
   stage: collect-data
-  needs:
-    - start-load
+ # needs:
+ #   - start-load
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./collect_metrics.sh
   tags: 
@@ -83,11 +86,12 @@ collect-data-edge:
     untracked: true
     paths:
       - $CI_PROJECT_DIR/helpers/prom-data/
+  when: manual
 
 collect-data-cloud:
   stage: collect-data
-  needs:
-    - start-load
+#  needs:
+#    - start-load
   script:
     - cd $CI_PROJECT_DIR/helpers/scripts && ./collect_metrics.sh
   tags:
@@ -96,6 +100,7 @@ collect-data-cloud:
     untracked: true
     paths:
       - $CI_PROJECT_DIR/helpers/prom-data/
+  when: manual
 
 cleanup-edge:
   stage: cleanup
