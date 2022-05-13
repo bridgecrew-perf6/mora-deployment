@@ -1,0 +1,34 @@
+routes:
+  cloudURL: 'cloud.gollo1.particles.dieei.unict.it'
+  edgeURL: 'edge.gollo2.particles.dieei.unict.it'
+
+noDNSServerForCloud: false
+isOpenShift: false
+isMinikube: true
+
+vms:
+  isCloud: "false" # Let the micro-services know they are executing in the Edge
+  maxVideo: 20
+  variantType: "0" # Set the VMS to act as the Edge Cache Variant
+  needKafkaBeans: "false"
+
+#Parameters of the capped video collection
+mongodb:
+  videoCollectionSize: 10000
+  videoCollectionMaxDocs: 20
+
+vps: # Not used here since Cache Variant does not deploy any VPS
+  replicas: 1
+
+lb:
+  # Sets the maximum number of concurrent users an Edge Deployment can serve
+  maxConcurrentUsers: 10
+
+# Images url for the containers
+images:
+  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
+  cloudVms: quay.io/massigollo/video-server:cloud-vms
+  cloudVps: quay.io/massigollo/video-server:cloud-vps
+  mongoDb: quay.io/massigollo/video-server:mongodb
+  kafka: quay.io/massigollo/video-server:kafka
+  zookeeper: quay.io/massigollo/video-server:zookeeper

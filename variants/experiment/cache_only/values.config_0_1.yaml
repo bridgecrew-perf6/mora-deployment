@@ -1,5 +1,4 @@
 routes:
-  # This is the domain to which a client is redirected if the Edge cannot serve her request
   cloudURL: 'cloud.gollo1.particles.dieei.unict.it'
   edgeURL: 'edge.gollo2.particles.dieei.unict.it'
 
@@ -9,14 +8,14 @@ isMinikube: true
 
 vms:
   isCloud: "false" # Let the micro-services know they are executing in the Edge
-  maxVideo: 5
+  maxVideo: 10
   variantType: "0" # Set the VMS to act as the Edge Cache Variant
   needKafkaBeans: "false"
 
 #Parameters of the capped video collection
 mongodb:
   videoCollectionSize: 10000
-  videoCollectionMaxDocs: 5
+  videoCollectionMaxDocs: 10
 
 vps: # Not used here since Cache Variant does not deploy any VPS
   replicas: 1

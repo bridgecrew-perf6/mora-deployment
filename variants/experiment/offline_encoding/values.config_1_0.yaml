@@ -1,0 +1,33 @@
+resources:
+  vps:
+    limits:
+      cpu: 500m
+      memory: 3Gi
+    requests:
+      cpu: 300m
+      memory: 2Gi
+
+routes:
+  cloudURL: 'cloud.gollo1.particles.dieei.unict.it'
+  edgeURL: 'edge.gollo2.particles.dieei.unict.it'
+
+isOpenShift: false
+isCloud: "false" # Let the micro-services know they are executing in the Edge
+
+vms:
+  maxVideo: 20 # Set limits of the capped collection (i.e., the maximum number of video stored in the Edge, leveraging a LRU cache retention policy)
+  variantType: "1" # Set the VMS to act as the Edge Offline Encoding Variant
+
+#Parameters of the capped video collection
+mongo:
+  videoCollectionSize: 10000
+  videoCollectionMaxDocs: 20
+
+vps:
+  # Number of replicas of the VPS (the more the replicas the more used resources in the Edge by the SP)
+  replicas: 1
+
+lb:
+  # Sets the maximum number of concurrent users an Edge Deployment can serve
+  maxConcurrentUsers: 10
+
