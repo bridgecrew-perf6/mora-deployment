@@ -64,6 +64,8 @@ spec:
                         name: videoserver-videofiles
                       - mountPath: /logs
                         name: videoserver-logs
+                      - mountPath: /video
+                        name: videoserver-video
                   resources:
                     {{- toYaml .Values.resources.apigateway| nindent 20 }}
             volumes:
@@ -73,3 +75,6 @@ spec:
               - name: videoserver-logs
                 persistentVolumeClaim:
                   claimName: videoserver-logs
+              - name: videoserver-video
+                persistentVolumeClaim:
+                  claimName: videoserver-video
