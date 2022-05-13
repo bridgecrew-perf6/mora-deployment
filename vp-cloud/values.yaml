@@ -150,7 +150,7 @@ services:
 # Images url for the containers
 images:
   edgeLb: quay.io/massigollo/video-server:edge-lb
-  cloudGateway: quay.io/massigollo/video-server:cloud-gateway
+  cloudGateway: quay.io/massigollo/video-server:cloud-gateway_fix
   cloudVms: docker.io/aleskandro/video-server:cloud-vms3
   cloudVps: quay.io/massigollo/video-server:cloud-vps
   mongoDb: quay.io/massigollo/video-server:mongodb
