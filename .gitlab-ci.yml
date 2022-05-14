@@ -104,8 +104,6 @@ collect-data-cloud:
 
 cleanup-edge:
   stage: cleanup
-  needs: 
-    - collect-data-edge
   script:
     - minikube delete 
   tags:
@@ -118,6 +116,4 @@ cleanup-cloud:
     - minikube delete 
   tags:
     - "cloud-runner"
-  needs:
-    - collect-data-cloud
   when: manual
