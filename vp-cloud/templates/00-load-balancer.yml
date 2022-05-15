@@ -20,7 +20,7 @@ spec:
     kind: Service
     name: videoserver-lb
 {{- else }}
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: expose-lb
@@ -29,9 +29,13 @@ spec:
   - host: {{ .Values.routes.edgeURL }}
     http:
       paths:
-      - backend:
-          serviceName: videoserver-lb
-          servicePort: 8080
+        - path: /
+          pathType: Prefix
+          backend:
+           service:
+             name: videoserver-lb
+             port:
+               number: 8080
 {{- end }}
 ---
 apiVersion: apps/v1
