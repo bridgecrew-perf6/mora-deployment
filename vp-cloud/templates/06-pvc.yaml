@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: {{ .Values.namespace }}
+  #namespace: {{ .Values.namespace }}
   name: videoserver-videofiles
 spec:
   storageClassName: {{.Values.storageClassName}}
@@ -18,7 +18,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: {{ .Values.namespace }}
+  #namespace: {{ .Values.namespace }}
   name: videoserver-logs
 spec:
   storageClassName: {{.Values.storageClassName}}
@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: {{ .Values.namespace }}
+  #namespace: {{ .Values.namespace }}
   name: videoserver-video
 spec:
   storageClassName: {{.Values.storageClassName}}
@@ -52,7 +52,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: {{ .Values.namespace }}
+  #namespace: {{ .Values.namespace }}
   name: mongodb-data
 spec:
   storageClassName: {{.Values.storageClassName}}
